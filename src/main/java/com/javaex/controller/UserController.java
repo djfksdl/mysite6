@@ -2,6 +2,7 @@ package com.javaex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,10 +62,39 @@ public class UserController {
 		
 		userService.exeJoin(userVo);
 		
-		return "";
+		return "redirect:/main";
 	}
 	//회원정보 수정폼
+	@RequestMapping(value="/user/mform", method= {RequestMethod.GET, RequestMethod.POST})
+	public String mform(HttpSession session , Model model) {//세션에서 no받기
+		System.out.println("UserController.mform");
+		
+		UserVo uVo=(UserVo)session.getAttribute("authUser");
+		int no= uVo.getNo();
+		
+		UserVo userVo= userService.exeMform(no);
+		
+		model.addAttribute("userVo" ,userVo);
+		
+		return"user/modifyForm";
+	}
 	//회원정보 수정
+	@RequestMapping(value="/user/modify", method= {RequestMethod.GET, RequestMethod.POST})
+	public String modify(@ModelAttribute UserVo userVo, HttpSession session) {//pw,name,gender를 Vo로 묶어서 받기, 세션에서 no받기
+		System.out.println("UserController.modify");
+		
+		UserVo uVo =(UserVo)session.getAttribute("authUser");
+		int no = uVo.getNo();
+		
+		userVo.setNo(no);
+		
+		userService.exeModify(userVo);
+		
+		//세션에 name넣어주기
+		uVo.setName(userVo.getName());
+		
+		return "redirect:/main";
+	}
 	
 	
 }

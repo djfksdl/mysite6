@@ -19,4 +19,26 @@
 			values(null, #{id}, #{password}, #{name}, #{gender})
 		]]>
 	</insert>
+	
+	<!-- 회원정보 수정폼 -->
+	<select id="selectByNo" parameterType="int" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select id
+				  ,password
+				  ,name
+			from users
+			where no=#{no}			
+		]]>
+	</select>
+	
+	<!-- 회원정보 수정폼 -->
+	<update id="update" parameterType="com.javaex.vo.UserVo">
+		<![CDATA[
+			update users
+			set password= #{password}
+				,name=#{name}
+    			,gender=#{gender}
+			where no=#{no}
+		]]>
+	</update>
 </mapper>

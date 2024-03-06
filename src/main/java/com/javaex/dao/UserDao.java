@@ -28,4 +28,20 @@ public class UserDao {
 		
 		sqlSession.insert("user.insert", userVo);
 	}
+	
+	//회원정보 수정폼
+	public UserVo userMform(int no) {
+		System.out.println("UserDao.userMform");
+		
+		UserVo userVo = sqlSession.selectOne("user.selectByNo", no);
+		
+		return userVo;
+	}
+	
+	//회원정보 수정
+	public void userModify(UserVo userVo) {
+		System.out.println("UserDao.userModify");
+		
+		sqlSession.update("user.update", userVo);
+	}
 }
