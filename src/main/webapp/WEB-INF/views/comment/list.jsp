@@ -66,18 +66,39 @@
 							<tbody>
 								<c:forEach items="${cList}" var="commentVo">
 									<tr>
-										<td>${commentVo.no}</td>
-										<td class="text-left"><a href="">${commentVo.title}</a></td>
-										<td>${commentVo.name}</td>
-										<td>${commentVo.hit}</td>
-										<td>${commentVo.reg_date}</td>
-										<c:if test="${authUser != null }">
-											<td><a href="${pageContext.request.contextPath}/comment/wform?group_no=${commentVo.group_no}&order_no=${commentVo.order_no}&depth=${commentVo.depth}&user_no=${authUser.no}">[댓글쓰기]</a></td>
+										<c:if test="${commentVo.depth != 0 }">
+											<td>${commentVo.no}</td>
+											<td class="text-left">
+												<c:forEach var="i" begin="1" end="${commentVo.depth}">
+										            &nbsp;&nbsp;
+										        </c:forEach>
+										        &#8627;	<a href=""> ${commentVo.title}</a>
+											</td>
+											<td>${commentVo.name}</td>
+											<td>${commentVo.hit}</td>
+											<td>${commentVo.reg_date}</td>
+											<c:if test="${authUser != null }">
+												<td><a href="${pageContext.request.contextPath}/comment/wform?group_no=${commentVo.group_no}&order_no=${commentVo.order_no}&depth=${commentVo.depth}&user_no=${authUser.no}">[댓글쓰기]</a></td>
+											</c:if>
+											<c:if test="${authUser == null }">
+												<td></td>
+											</c:if>
+											<td>g: ${commentVo.group_no}, o: ${commentVo.order_no}, d: ${commentVo.depth}</td>
 										</c:if>
-										<c:if test="${authUser == null }">
-											<td></td>
+										<c:if test="${commentVo.depth == 0 }">
+											<td>${commentVo.no}</td>
+											<td class="text-left"><a href="">${commentVo.title}</a></td>
+											<td>${commentVo.name}</td>
+											<td>${commentVo.hit}</td>
+											<td>${commentVo.reg_date}</td>
+											<c:if test="${authUser != null }">
+												<td><a href="${pageContext.request.contextPath}/comment/wform?group_no=${commentVo.group_no}&order_no=${commentVo.order_no}&depth=${commentVo.depth}&user_no=${authUser.no}">[댓글쓰기]</a></td>
+											</c:if>
+											<c:if test="${authUser == null }">
+												<td></td>
+											</c:if>
+											<td>g: ${commentVo.group_no}, o: ${commentVo.order_no}, d: ${commentVo.depth}</td>
 										</c:if>
-										<td>g: ${commentVo.group_no}, o: ${commentVo.order_no}, d: ${commentVo.depth}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
