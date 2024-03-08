@@ -255,12 +255,12 @@ select  r.no
 		,depth
 from rboard r join users u
 where r.user_no = u.no
-order by group_no desc, order_no asc;
+order by group_no desc, order_no desc;
 
 update rboard
 set order_no=order_no+1
 where depth=1
-and group_no=1;
+and group_no=80;
 
 insert into rboard
 values(null, 1, "우리나라만세","우리나라만세", 0, now(), 1,1,1 );
@@ -269,9 +269,9 @@ select*from rboard;
 
 
 update rboard
-set order_no=1
-where no=2;
+set order_no=3
+where no=88;
 
 delete from rboard 
-where no=67;
+where no=97;
 
