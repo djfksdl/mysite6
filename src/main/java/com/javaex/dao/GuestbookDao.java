@@ -31,9 +31,33 @@ public class GuestbookDao {
 	}
 	
 	//삭제
-	public void guestDelete(GuestbookVo guestbookVo) {
+	public int guestDelete(GuestbookVo guestbookVo) {
 		System.out.println("GuestbookDao.guestDelete");
 		
 		sqlSession.delete("guestbook.delete", guestbookVo);
+
+		return guestbookVo.getNo();
+	}
+	
+	//ajax등록
+	public int insertSelectKey(GuestbookVo guestbookVo) {
+		System.out.println("GuestbookDao.insertSelectKey");
+		
+		System.out.println(guestbookVo);//no비어있음
+		int count = sqlSession.insert("guestbook.insertSelectKey",guestbookVo);
+		System.out.println(guestbookVo);//no 있음
+		
+		
+		return count;
+	}
+	
+	//데이터 1개 가져오기 - no 1명 데이터 가져오기
+	public GuestbookVo guestbookSelectOne(int no) {
+		System.out.println("GuestbookDao.guestbookSelectOne");
+		//guestbookVo.getNo();//no를 가져와서 하나 가져온다.- what?reg_date없기 때문에 이걸로 조회해서 reg_date가져와야함.
+		GuestbookVo guestbookVo =sqlSession.selectOne("guestbook.selectOne",no);
+		System.out.println(guestbookVo);
+		
+		return guestbookVo;
 	}
 }

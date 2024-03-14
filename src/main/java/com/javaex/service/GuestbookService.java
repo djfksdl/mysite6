@@ -32,10 +32,24 @@ public class GuestbookService {
 	}
 	
 	//삭제
-	public void exeDelete(GuestbookVo guestbookVo) {
+	public int exeDelete(GuestbookVo guestbookVo) {
 		System.out.println("GuestbookService.exeDelete");
 		
-		guestbookDao.guestDelete(guestbookVo);
+		int no= guestbookDao.guestDelete(guestbookVo);
+		return no;
+	}
+	
+	//ajax등록
+	public GuestbookVo exeAddandGuest(GuestbookVo guestbookVo) {
+		System.out.println("GuestbookService.exeAddandGuest");
 		
+		//저장
+		System.out.println("전"+ guestbookVo);//no비어있음
+		int no = guestbookDao.insertSelectKey(guestbookVo);
+		System.out.println("후"+guestbookVo);//no있음
+		
+		//1명데이터 가져오기
+		GuestbookVo gVo= guestbookDao.guestbookSelectOne(guestbookVo.getNo());
+		return gVo;
 	}
 }
