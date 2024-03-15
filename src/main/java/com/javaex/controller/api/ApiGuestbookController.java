@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,9 +33,10 @@ public class ApiGuestbookController {
 	}
 	
 	//등록
-	@ResponseBody
+	@ResponseBody//응답임
 	@RequestMapping(value="/api/guestbooks", method=RequestMethod.POST) //같은 주소인데 method로 구분== 주소창에 안붙고, body에 붙어서 오기때문에 사용자에게 안보임
-	public GuestbookVo add(@ModelAttribute GuestbookVo guestbookVo) {//name,pw,content를 받아야함
+	//public GuestbookVo add(@ModelAttribute GuestbookVo guestbookVo) {//name,pw,content를 받아야함 /파라미터에 있는거 담아줘,꺼내줘?12:40 였는데,json으로 보낼때는 요청바디에 json으로 있다고 알려줘야함.
+	public GuestbookVo add(@RequestBody GuestbookVo guestbookVo) {
 		System.out.println("ApiGuestbookController.add()");
 		
 		System.out.println("컨전"+ guestbookVo);
@@ -48,12 +51,14 @@ public class ApiGuestbookController {
 	
 	//삭제
 	@ResponseBody
-	@RequestMapping(value="/api/guestbooks/delete", method=RequestMethod.POST)
-	public int delete(@ModelAttribute GuestbookVo guestbookVo ) {//no랑 pw받으면 됨
-		System.out.println("ApiGuestbookController.delete()");
-		
-		int no =guestbookService.exeDelete(guestbookVo);
-		
-		return no;
+	@RequestMapping(value="/api/guestbooks/{no}", method=RequestMethod.DELETE) //변하는 값이면{}안에 변수 써줌. 이름자체는 상관없음 
+	public int remove(@PathVariable("no") int no,@ModelAttribute GuestbookVo guestbookVo ) {//no랑 pw받으면 됨./ no는 여기선 pathvariable로 안받아도됨. Vo에 들어가있고, no를 꺼내서 쓸게 아니기 때문에!일단은 냅둠
+		System.out.println("ApiGuestbookController.remove()");
+		System.out.println(no);
+		System.out.println(guestbookVo);//여기엔 password만 있어야함.(js참조) 원래는 따로 no넣어줘야했었는데 따로 넣어주지않아도 들어가있음. no를 꺼내써야하면 위에 pathvalriable넣어줘야하는데 굳이 꺼내서 안쓰면 pathvalriable안써도됨.
+		int count =guestbookService.exeDelete(guestbookVo);
+		return count;
+		//int no =guestbookService.exeDelete(guestbookVo);
+		//return no;
 	}
 }

@@ -32,11 +32,12 @@ public class GuestbookDao {
 	
 	//삭제
 	public int guestDelete(GuestbookVo guestbookVo) {
-		System.out.println("GuestbookDao.guestDelete");
+		System.out.println("GuestbookDao.guestDelete()");
 		
-		sqlSession.delete("guestbook.delete", guestbookVo);
+		int count = sqlSession.delete("guestbook.delete", guestbookVo);
 
-		return guestbookVo.getNo();
+		//return guestbookVo.getNo();
+		return count;
 	}
 	
 	//ajax등록

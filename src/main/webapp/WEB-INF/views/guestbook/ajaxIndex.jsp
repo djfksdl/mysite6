@@ -11,12 +11,34 @@
 <!-- Axios 라이브러리 포함: 원래 위에 있으면 다 받을때까지 멈추지만 일단 당분간 여기 쓰기 -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <style>
+	/*모달창 배경*/
 	.modal{
-		display:none;
+		width: 100%;
+		height: 100%; 
+		display:none; /*시작할때 숨김처리*/
+		position: fixed;
+		left:0;
+		top:0;
+		z-index: 999;
+		overflow: auto;
+		background-color: rgba(0,0,0,0.4);
 	}
+	/*모달창 내용*/
 	.modal .modal-content{
-		width: 818px;
-		border: 1px solid #000000;
+		width: 400px;
+		border: 1px solid #888;
+		margin: 300px auto;
+		padding: 0 20px 20px;
+		background-color: #fff;
+		border-radius: 10px;
+	}
+	/*닫기버튼*/
+	.modal .modal-content .closeBtn{
+		text-align: right;
+		font-size: 28px;
+		font-weight: bold;
+		color: "#aaa";
+		cursor: pointer;
 	}
 </style>
 </head>
@@ -173,8 +195,11 @@ document.addEventListener("DOMContentLoaded",function(){
 			method: 'post', // put, post, delete 
 			url: '${pageContext.request.contextPath}/api/guestbooks',        //?name='+name+'+'&password,이렇게 써도됨. 11:05
 			headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
-			params: guestVo, //get방식 파라미터로 값이 전달 -- 또는 {}로 가져와도됨
-			//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달. 여긴 지금은 필요없음 -왜??
+			//params: guestVo, //get방식 파라미터로 값이 전달 -- 또는 {}로 가져와도됨
+			//params가 있으면 컨트롤러에서 모델 어트리뷰트로 받으면 되는데, json으로 보내려면 막고 data를 연다.
+			//{"name":"황일영","password":"123","content":"안녕하세요"}이런 json방식으로 간다.
+			//이런식으로 가는데 그게 요청 바디에 붙어서 간다. 
+			data: guestVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달. 여긴 지금은 필요없음 -왜??파라미터로 보내니까 / 본문에 붙여서 가겠다.
 			responseType: 'json' //수신타입
 			})
 			.then(function (response) {
@@ -183,6 +208,14 @@ document.addEventListener("DOMContentLoaded",function(){
 			let guestbookVo = response.data;
 			
 			render(guestbookVo,"up");//
+			let delInput = document.querySelectorAll("tbody > tr> td >input");
+			let delTextarea = document.querySelectorAll("tbody textarea");
+			//console.log(delInput);
+			for (let i = 0; i<delInput.length; i++){
+				delInput[i].value ="";
+			}
+			delTextarea.textContent="";
+			
 			})
 			.catch(function (error) {
 			console.log(error);
@@ -207,9 +240,28 @@ document.addEventListener("DOMContentLoaded",function(){
 			console.log(event.target.dataset.no);
 			let noTag = document.querySelector('[name="no"]');
 			noTag.value=event.target.dataset.no;
+			
+			//패스워드창 비우기
+			document.querySelector('.m-password').value="";
 		}
 		
 	});
+	
+	//모달창 닫기 버튼(X) 클릭했을때
+	
+	//이벤트 잡고- 0 
+	//데이터모으고
+	//서버전송
+	//응답받고
+	//화면그리고- 0
+	//let guestbookListArea = document.querySelector("#guestbookListArea");
+	let closeBtn = document.querySelector(".closeBtn");
+	closeBtn.addEventListener("click",function(){
+		//console.log("엑스");
+		let modal = document.querySelector(".modal");
+		modal.style.display = "none";
+		
+	})
 	
 	//모달창에 삭제 버튼을 클릭했을때 (진짜 삭제)
 	let btnDelete = document.querySelector(".btnDelete");
@@ -221,26 +273,42 @@ document.addEventListener("DOMContentLoaded",function(){
 		
 		//데이터 모으고
 		let guestbookVo = {
-				no: no ,
+				//no: no , 주소에 보내니까
 				password: password
 		}
 		//console.log(guestbookVo);
 		
-		//서버요청
+		//서버로 데이터 전송
 		axios({
-			method: 'post', // put, post, delete 
-			url: '${pageContext.request.contextPath}/api/guestbooks/delete',
+			method: 'delete', // put, post, delete ,get
+			url: '${pageContext.request.contextPath}/api/guestbooks/'+no, //mysite/api/guestbooks/34
+			//url: '${pageContext.request.contextPath}/api/guestbooks/delete?no='+no+'&password='+password, 원래는 이렇게 넘겼었다.
 			headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
-			params: guestbookVo, //get방식 파라미터로 값이 전달
+			params: guestbookVo, //(여기선 위에 보내는 method따라그 방식으로) 파라미터로 값이 전달(위에서 '데이터 모으고'에서 써준 값(guestbookVo)을 넣어주면 됨!)
 			//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
 			responseType: 'json' //수신타입
 			})
 			.then(function (response) {
 			console.log("수신데이터:"+response); //수신데이타
 			console.log("수신데이터값:"+response.data); //수신데이타- 여기에 우리가 넣은 값들을 볼 수 있다.
-			let no = response.data;
+			//쌤이 하신 방법
+			//let tags = document.querySelectorAll("#guestbookListArea table");
+			//tags[0].firstChild 10:43
+			
+			if(response.data ==1){
+				//찾아서 비밀번호 일치할때만 지워져야함.
+				let tagid= "#t-"+ no; //아이디가 숫자만 되면 안되서 앞에 t넣어준거임
+				let removeTable = document.querySelector(tagid);
+				//console.log(removeTable);
+				removeTable.remove();
+			}else{
+				//아무것도 안해야함.
+			}
+			
+			//내가한 방법 - Dao에서 guestbookVo.getNo()로 no받아서 함.+ 함수하나 더 만들어줌.
+			//let no = response.data;
 			//console.log(typeof no);
-			rmTd(no);//
+			//rmTd(no);
 			})
 			.catch(function (error) {
 			console.log(error);
@@ -261,7 +329,7 @@ function render(guestbookVo, dir){//이 안에 재료를 준다고했음. 위에
 	//console.log(guestbookListArea);
 	
 	let str = '';
-	str += '<table class="guestRead">';
+	str += '<table id="t-'+guestbookVo.no+'" class="guestRead">'; //t-왜 넣는지?: 아이디는 숫자로 시작하면안되기 때문에 앞에 문자를 써준다.
 	str += '	<colgroup>';
 	str += '		<col style="width: 10%;">';		
 	str += '		<col style="width: 40%;">';
@@ -280,23 +348,28 @@ function render(guestbookVo, dir){//이 안에 재료를 준다고했음. 위에
 	str += '</table>';	
 	
 	if(dir == "down"){
-		guestbookListArea.insertAdjacentHTML("beforeend", str);		
+		guestbookListArea.insertAdjacentHTML("beforeend", str);	
+
+	
 	}else if(dir == "up"){
 		guestbookListArea.insertAdjacentHTML("afterbegin", str);
+
+		
 	}
 				
 }
-//삭제
+//삭제- 내가한 방법
+/* 이렇게 부모,자식 찾아가는게 위험한 이유는 테이블 구조가 바뀌면 다 바꿔야함! -> 관리가 어려움
 function rmTd(no){
 	let trTag = document.querySelector(".guestRead tr");
 	//console.log(trTag);
 	let tdTag = document.querySelector(".guestRead tr td");
 	console.log(tdTag.textContent);
 	if(no == tdTag.textContent){
-		//console.log(trTag.parentElement.parentElement);
-		trTag.parentElement.parentElement.remove();
+		console.log(trTag.parentElement.parentElement);
+		trTag.parentElement.remove();
 	}
-}
+}*/
 </script>
 
 </html>

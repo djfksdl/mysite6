@@ -35,13 +35,15 @@ public class GuestbookService {
 	public int exeDelete(GuestbookVo guestbookVo) {
 		System.out.println("GuestbookService.exeDelete");
 		
-		int no= guestbookDao.guestDelete(guestbookVo);
-		return no;
+		int count = guestbookDao.guestDelete(guestbookVo);
+		return count;
+		//int no= guestbookDao.guestDelete(guestbookVo);
+		//return no;
 	}
 	
 	//ajax등록
 	public GuestbookVo exeAddandGuest(GuestbookVo guestbookVo) {
-		System.out.println("GuestbookService.exeAddandGuest");
+		System.out.println("GuestbookService.exeAddandGuest()");
 		
 		//저장
 		System.out.println("전"+ guestbookVo);//no비어있음
