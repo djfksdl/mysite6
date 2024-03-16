@@ -29,7 +29,8 @@ public class ApiGuestbookController {
 		List<GuestbookVo> guestbookList = guestbookService.exeList();
 		System.out.println(guestbookList);
 		
-		return guestbookList; //원래는 .jsp로 인식하는데 위에 어노테이션 붙여주면 더이상 jsp라고 인식하지 않음. 
+		return guestbookList; //원래는 .jsp로 인식하는데 위에 @ResponseBody 붙여주면 더이상 jsp라고 인식하지 않음. json으로 암호화함
+		// 주소를 직접치면 json양식으로 나옴.
 	}
 	
 	//등록

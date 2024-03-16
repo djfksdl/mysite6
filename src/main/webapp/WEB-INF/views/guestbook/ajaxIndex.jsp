@@ -262,7 +262,7 @@ function addAndRender(event){
 
 
 //방명록 글 그리기 //옵션으로 위에 붙일지 아래로 붙일지 주면 됨. (dir은 방향이다)
-function render(guestbookVo, dir){//이 안에 재료를 준다고했음. 위에서 주소를 줌. 이름은 달라도됨.
+function render(guestbookVo, dir){//이 안에 재료를 준다고했음. 위에서 주소를 줌. 이름은 달라도됨. js는 파라미터 자료형 쓰지않음.
 	console.log("render()");
 	//console.log(guestbookVo);
 	
