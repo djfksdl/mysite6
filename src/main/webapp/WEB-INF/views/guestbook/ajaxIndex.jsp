@@ -10,6 +10,7 @@
 <link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 <!-- Axios 라이브러리 포함: 원래 위에 있으면 다 받을때까지 멈추지만 일단 당분간 여기 쓰기 -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <style>
 	/*모달창 배경*/
 	.modal{
@@ -183,15 +184,16 @@ function getListAndRender() {
 	axios({
 		method: 'get', // put, post, delete 
 		url: '${pageContext.request.contextPath}/api/guestbooks',
-		headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
+		headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입- 안써도 되는데 그냐ㅑㅇ 붙여줌.
 		//params: guestbookVo, //get방식 파라미터로 값이 전달
-		//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달 -왜지움?:옵션들 많이 쓰는거 가져옴. 안쓰는것도 있음. 
-		//위까지는 요청할때
+		//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달 -왜지움?:가져온 axios양식은 옵션들 많이 쓰는거 가져옴. 안쓰는것도 있음.
+		//데이터 보내는 방식은 params,data 두가지중 하나로 보낸다.
+		//위까지는 요청할때(보낼떄 옵션)
 		
 		//응답받을때
 		responseType: 'json' //수신타입
 	}).then(function (response) {//컨트롤러에서 json으로 바꿔서 바디에 붙인다고하면 여기에 들어옴
-		//console.log(response); //수신데이타
+		//console.log(response); //수신데이타. 여기는 화면이 올 수 없고 데이터만 올 수 있다.
 		//console.log(response.data);
 		
 		//리스트 자리에 글을 추가한다
@@ -200,7 +202,7 @@ function getListAndRender() {
 			render(guestVo,"down");//1개의 글을 render()에게 전달 -> render()는 리스트위치에 그린다. 
 		}
 		
-	}).catch(function (error) {
+	}).catch(function (error) {// 이상한 상황일때 에러메세지 나옴.
 		console.log(error);
 	});
 };
