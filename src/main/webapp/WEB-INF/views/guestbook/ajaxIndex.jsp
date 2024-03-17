@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded",function(){
 	
 	//모달창 호출 버튼을 클릭했을때//////////////////////////
 	let guestbookListArea = document.querySelector("#guestbookListArea");
-	//새로생긴거라 원래 있던 테이블을 클릭할수있게해서 버튼에 '위임'해주기
+	//새로생긴거라 원래 jsp에 존재하고 있던 테이블명을 클릭할수있게해서 버튼에 '위임'해주기
 	guestbookListArea.addEventListener("click", callModal);
 	
 	
@@ -246,13 +246,15 @@ function addAndRender(event){
 		let guestbookVo = response.data;
 		
 		render(guestbookVo,"up");//
-		let delInput = document.querySelectorAll("tbody > tr> td >input");
+		/*let delInput = document.querySelectorAll("tbody > tr> td >input");
 		let delTextarea = document.querySelectorAll("tbody textarea");
 		//console.log(delInput);
 		for (let i = 0; i<delInput.length; i++){
 			delInput[i].value ="";
 		}
-		delTextarea.textContent="";
+		delTextarea.textContent="";*/
+		//폼비우기
+		guestForm.reset();
 		
 		})
 		.catch(function (error) {
@@ -261,7 +263,7 @@ function addAndRender(event){
 };
 
 
-//방명록 글 그리기 //옵션으로 위에 붙일지 아래로 붙일지 주면 됨. (dir은 방향이다)
+//방명록 글 그리기 //옵션으로 위에 붙일지 아래로 붙일지 파라미터를 하나 더 받게하면 됨. (dir은 방향이다)
 function render(guestbookVo, dir){//이 안에 재료를 준다고했음. 위에서 주소를 줌. 이름은 달라도됨. js는 파라미터 자료형 쓰지않음.
 	console.log("render()");
 	//console.log(guestbookVo);
@@ -305,7 +307,7 @@ function render(guestbookVo, dir){//이 안에 재료를 준다고했음. 위에
 function callModal(event){
 	//console.log(event.target);//클릭한걸 찍어줌. 버튼클릭하면 버튼, td를 찍으면 td
 	//console.log(this);//리스너를 테이블에 걸어놓았기때문에 테이블이 찍혀야함.
-	//console.log(event.target.tagName);
+	//console.log(event.target.tagName);(tagName은 대문자로 나옴)
 	
 	if(event.target.tagName == "BUTTON"){//버튼만 눌렸을때 ~로 조건 설정
 		//console.log("모달창 보이기");	
