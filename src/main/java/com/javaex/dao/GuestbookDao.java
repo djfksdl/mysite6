@@ -49,13 +49,13 @@ public class GuestbookDao {
 		System.out.println(guestbookVo);//no 있음
 		
 		
-		return count;
+		return count;//Service에서도 guestbookVo을 넘겨받아서 no를 이미 꺼내쓸 수 있기떄문에 굳이 getNo를 넘겨주지 않아도됨. count만 넘겨도 됨.
 	}
 	
 	//데이터 1개 가져오기 - no 1명 데이터 가져오기
 	public GuestbookVo guestbookSelectOne(int no) {
 		System.out.println("GuestbookDao.guestbookSelectOne");
-		//guestbookVo.getNo();//no를 가져와서 하나 가져온다.- what?reg_date없기 때문에 이걸로 조회해서 reg_date가져와야함.
+		//guestbookVo.getNo();//no를 가져와서 하나의 리스트틀 가져온다. 근데 하나의 Dao에 두가지가 같이 있으면 안되서 메소드를 나눠준다.
 		GuestbookVo guestbookVo =sqlSession.selectOne("guestbook.selectOne",no);
 		System.out.println(guestbookVo);
 		

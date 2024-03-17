@@ -35,8 +35,8 @@ public class ApiGuestbookController {
 	
 	//등록
 	@ResponseBody//응답임
-	@RequestMapping(value="/api/guestbooks", method=RequestMethod.POST) //같은 주소인데 method로 구분== 주소창에 안붙고, body에 붙어서 오기때문에 사용자에게 안보임
-	//public GuestbookVo add(@ModelAttribute GuestbookVo guestbookVo) {//name,pw,content를 받아야함 /파라미터에 있는거 담아줘,꺼내줘?12:40 였는데,json으로 보낼때는 요청바디에 json으로 있다고 알려줘야함.
+	@RequestMapping(value="/api/guestbooks", method=RequestMethod.POST) //같은 주소인데 method로 구분함. 주소창에 안붙고, body에 붙어서 오기때문에 사용자에게 안보임
+	//public GuestbookVo add(@ModelAttribute GuestbookVo guestbookVo) {//name,pw,content를 받아야함 /파라미터에 있는거 담아달라였는데,json으로 보낼때는 요청바디에 json으로 있다고 알려줘야함.
 	public GuestbookVo add(@RequestBody GuestbookVo guestbookVo) {
 		System.out.println("ApiGuestbookController.add()");
 		
@@ -47,6 +47,7 @@ public class ApiGuestbookController {
 		return gVo;//그냥 "ok"만 쓰면 /WEB-INF/views/ok.jsp로 변경된다! 기본 약속!
 		//responeType이 json이니까 json으로 써줘야함-> @ResponseBody붙여주기
 		//return자리에 화면 넣지말고 json으로 바꾼걸 body에 넣어라 2:43 바디에 넣으려면 json으로 만들어야한다.
+		//ok만 보내면 안됨. 데이터만 감. 화면에 뿌리려면 내가 그려야함. 그러기 위해선 한명 데이터를 보내줘야함. no와 reg_data는 등록시 내가 넣어줄 수 없음. db에 저장해서 방금 저장한 애 풀세트를 키값으로 가져와줘야함  
 	}
 	
 	

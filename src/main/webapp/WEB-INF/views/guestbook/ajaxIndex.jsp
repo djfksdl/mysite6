@@ -210,8 +210,8 @@ function getListAndRender() {
 
 //글 저장하고 그리기
 function addAndRender(event){
-	//어제는 잠깐 끼어서 원래기능을 유지하려고 쓴거고, 지금은 클릭또는 서브밋으로 쓸거다. 
-	//근데 폼은 항상 서브밋으로 써주면 된다. 
+	//어제는 잠깐 끼어서 원래기능을 유지하려고 쓴거고, 지금은 click 또는 submit으로 쓸거다. 
+	//근데 form은 항상 submit으로 써주면 된다. 
 	//console.log("글쓰기 버튼 클릭")
 	//그냥 눌러버리면 이전에 있던 주소로 날라감. 그래서 막아줘야함. 
 	event.preventDefault();
