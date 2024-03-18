@@ -34,7 +34,7 @@ public class AttachService {
 		
 		
 		//확장자 (.jsp, .exle 등등): 있으면 매칭되는 아이콘 생길수있음
-		String exName = orgName.substring(orgName.lastIndexOf("."));//.찍힌곳에 어디에 이쓴지
+		String exName = orgName.substring(orgName.lastIndexOf("."));//.찍힌곳에 어디에 있는지
 		System.out.println("exeName:"+ exName); //세이브네임에 확장자 붙이려고 만든거임. 굳이 얘는 db에 저장할 필요없음
 		//System.out.println(orgName.substring(4));
 		//System.out.println(orgName.lastIndexOf("."));
@@ -52,7 +52,7 @@ public class AttachService {
 		String filePath = saveDir + "\\" + saveName;
 		System.out.println("filePath: " + filePath);
 		
-		//(1) 파일 정보를 DB레 저장
+		//(1) 파일 정보를 DB에 저장
 		//*vo로 묶어주기
 		AttachVo attachVo = new AttachVo(orgName,saveName,filePath,fileSize);
 		System.out.println(attachVo);

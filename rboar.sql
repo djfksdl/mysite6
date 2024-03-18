@@ -293,3 +293,46 @@ from attach;
 
 insert into attach
 values(null, "Kim-Jong-kook.jpg","17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","C:\javaStudy\upload\17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","72159" );
+
+-- gallery table만들기
+create table gallery(
+	no integer auto_increment primary key
+    ,user_no int not null
+	,content varchar(1000)
+	,filePath varchar(500)
+	,orgName varchar(200)
+    ,saveName varchar(500)
+    ,fileSize int 
+	,constraint gallery_fk foreign key(user_no)
+  references users(no)
+);
+
+select *
+from gallery;
+
+select no
+	  ,user_no
+	  ,content
+	  ,filePath
+	  ,orgName
+	  ,saveName
+	  ,fileSize
+from gallery;
+
+select g.no
+	  ,u.name
+	  ,content
+	  ,filePath
+	  ,orgName
+	  ,saveName
+	  ,fileSize
+from gallery g join users u
+where g.user_no = u.no;
+
+select *
+from users;
+
+insert into gallery
+values(null,5,"안녕","C:\javaStudy\upload\17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","Kim-Jong-kook.jpg","17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","72159" );
+insert into gallery
+values(null,3,"안녕","C:\javaStudy\upload\17107408923441bbe2085-7d49-468b-b614-4f33079f8d17.jpg","Lee-Kwang-soo.jpg","17107408923441bbe2085-7d49-468b-b614-4f33079f8d17.jpg","68001" );

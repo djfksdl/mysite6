@@ -76,6 +76,46 @@
 /* 업로드 팝업   ************************************************/
 /****************************************************************/
 /* 회원가입 폼요소그룹(라벨+폼요소) */
+/****** 업로드 모달창 ******/
+#addModal{
+	display: none;
+	background-color: rgba(0,0,0,0.4);
+	width:100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top:0;
+	padding-top: 200px;
+}
+#addModal .modal-content{
+	border: 1px solid #000;
+	border-radius: 10px;
+	width:500px;
+	margin: 0 auto;
+	padding: 10px;
+	background-color: #fff;
+}
+/* 모달창 내용 윗부분*/
+#addModal .modal-content .addModal-top{
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row-reverse;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+	padding-left: 200px;
+	margin-bottom: 10px;
+}
+#addModal .modal-content .closeBtn{
+	text-align: rightl;
+	font-size: 25px;
+	cursor: pointer;
+	font-weight: bold;
+}
+#addModal .modal-content .m-header{
+	text-align: center;
+}
+
+
 .form-group {
 	padding: 10px 5px 10px 5px;
     text-align: left;
@@ -87,7 +127,10 @@
     text-align: left;
     margin-right: 20px;
 }
-
+.m-footer {
+	display:flex;
+	justify-content: end;
+}
 #addModalContent {
 	width: 450px;
 	height: 30px;
@@ -115,10 +158,6 @@
 ****************************************************************/
 /* 업로드 팝업   ************************************************/
 /****************************************************************/
-
-
-
-
 
 
 /* 등록버튼 */
