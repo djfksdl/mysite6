@@ -42,14 +42,14 @@ public class GalleryController {
 		UserVo uVo = (UserVo)session.getAttribute("authUser");
 		int no = uVo.getNo();
 		
-//		//서비스로 넘기기 
+		//서비스로 넘기기 
 		galleryVo.setUser_no(no);
 		System.out.println(galleryVo);
 		String saveName = galleryService.exeUpload(galleryVo);
 		
 		//모델에 넣어주기
 		model.addAttribute("saveName", saveName);
-		System.out.println("모델에 넣기 성공");
+		System.out.println(saveName);
 		
 		return "redirect:/gallery/list";
 	}

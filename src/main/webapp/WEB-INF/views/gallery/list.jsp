@@ -120,15 +120,15 @@
 			</div>
 			<div class="m-body">
 				<div>
-				   <img id="viewModelImg" src="${pageContext.request.contextPath}/upload/1710771334228ead93f0f-e097-4c7a-86f8-2400bdaeb498.jpg">
+				   <img id="viewModelImg" src="${pageContext.request.contextPath}/upload/${saveName}">
 				   <!-- ajax로 처리 : 이미지출력 위치-->
 				</div>
 				<div>
-				   <p id="viewModelContent">${content}</p>
+				   <p id="viewModelContent">내용입니다.</p>
 				</div>
 			</div>
 			<div class="m-footer">
-				<input type="text" name="no" value="${no}">
+				
 			   <button>삭제</button>
 			</div>
 		</div>
@@ -170,6 +170,7 @@
 		  	//console.log("위임완료");
 			viewModal.style.display="block";
 			
+			//이미지 받기?
 			
 			
 		  }//모달창안에서 할 수 있는 일 끝
