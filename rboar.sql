@@ -275,3 +275,15 @@ where no=88;
 delete from rboard 
 where no=97;
 
+select  *
+from guestbook;
+
+
+-- attach table만들기
+create table attach(
+	no integer auto_increment primary key
+    ,org_name varchar(500) 
+	,save_name text 
+	,file_path text
+	,file_size long
+);

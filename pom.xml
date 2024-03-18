@@ -51,6 +51,19 @@
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
 
+		<!-- File Upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
+		<!-- 이건뭔지 찾아보기 devtools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -71,7 +84,7 @@
 			<version>3.0.3</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- mysql driver -->
 		<dependency>
 			<groupId>com.mysql</groupId>
