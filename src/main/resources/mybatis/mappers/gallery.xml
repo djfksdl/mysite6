@@ -15,6 +15,7 @@
 	</select>
 	
 	<!-- 이미지 업로드 -->
+
 	<insert id="insert" parameterType="com.javaex.vo.GalleryVo">
 		<![CDATA[
 			insert into gallery

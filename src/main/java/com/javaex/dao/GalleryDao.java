@@ -31,5 +31,6 @@ public class GalleryDao {
 		System.out.println("이미지 디비 들어가기전 :" + gVo);
 		//디비에 등록하기
 		sqlSession.insert("gallery.insert", gVo);
+		System.out.println("이미지 디비 들어가고 난 후 :" + gVo);
 	}
 }

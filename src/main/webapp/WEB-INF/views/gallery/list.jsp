@@ -37,7 +37,7 @@
 			      <ul>
 			         <li>홈</li>
 			         <li>갤러리</li>
-			         <li class="last">갤러리</li>
+			         <li class="last">일반 갤러리</li>
 			      </ul>
 			   </div>
 			   <div class="clear"></div>
@@ -55,12 +55,12 @@
 	            <div class="clear"></div>
 	
 	            <ul id="viewArea">
-	
 	               <!-- 이미지반복영역 -->
 	               <c:forEach items="${galleryList}" var="gList">
 		               <li>
 		                  <div class="view">
-		                     <img class="imgItem" src="${pageContext.request.contextPath}/upload/${saveName}">
+		                     <img class="imgItem" src="${pageContext.request.contextPath}/upload/${gList.saveName}">
+		                     <!-- 반복되는 gList안에서 savaName을 뽑아 와야 리스트에 반영이 된다. attribute에 넣는건 이 곳과는 상관없음 -->
 		                     <div class="imgWriter">
 		                        작성자: <strong>${gList.name}</strong>
 		                     </div>
@@ -91,7 +91,7 @@
 	<div id="addModal" class="modal">
 		<div class="modal-content">
 			<form action="${pageContext.request.contextPath}/gallery/upload" method="post" enctype="multipart/form-data">
-				<div class="addModal-top">
+				<div class="Modal-top">
 					<div class="closeBtn">×</div>
 					<div class="m-header">이미지 등록</div>
 				</div>
@@ -114,18 +114,21 @@
 	<!-- 이미지보기 팝업(모달)창 -->
 	<div id="viewModal" class="modal">
 		<div class="modal-content">
-			<div class="closeBtn">×</div>
-			<div class="m-header">간단한 타이틀</div>
+			<div class="Modal-top">
+				<div class="closeBtn">×</div>
+				<div class="m-header">이미지 보기</div>
+			</div>
 			<div class="m-body">
 				<div>
-				   <img id="viewModelImg" src="">
+				   <img id="viewModelImg" src="${pageContext.request.contextPath}/upload/1710771334228ead93f0f-e097-4c7a-86f8-2400bdaeb498.jpg">
 				   <!-- ajax로 처리 : 이미지출력 위치-->
 				</div>
 				<div>
-				   <p id="viewModelContent"></p>
+				   <p id="viewModelContent">${content}</p>
 				</div>
 			</div>
 			<div class="m-footer">
+				<input type="text" name="no" value="${no}">
 			   <button>삭제</button>
 			</div>
 		</div>
@@ -144,7 +147,7 @@
 		   addModal.style.display = "block";
 		   
 		   //모달창 끄기
-		   let closeBtn =document.querySelector(".closeBtn");
+		   let closeBtn =document.querySelector("#addModal .closeBtn");
 		   closeBtn.addEventListener("click",function(){
 			   addModal.style.display = "none";
 		   });
@@ -152,7 +155,38 @@
 		   
 	   });//등록버튼 눌렀을때 끝
 	   
-	   //사진 등록하기
+	   //이미지 눌렀을때 모달창 띄우기
+	   let viewArea = document.querySelector("#viewArea");
+	   viewArea.addEventListener("click",function(event){
+		  //console.log("이미지 눌렀을때");
+		  //위임
+		  //console.log(event.target);
+		  let imgTag = event.target.tagName;
+		  console.log(imgTag);
+		  
+		  //이미지 클릭할때 모달창 나오기
+		  if(imgTag == "IMG"){
+			let viewModal = document.querySelector("#viewModal");
+		  	//console.log("위임완료");
+			viewModal.style.display="block";
+			
+			
+			
+		  }//모달창안에서 할 수 있는 일 끝
+		  
+		  
+		  
+		  
+		  
+		  //x눌렀을때 모달창 닫기
+		  let closeBtn =document.querySelector("#viewModal .closeBtn");
+		   closeBtn.addEventListener("click",function(){
+			   viewModal.style.display = "none";
+		   });
+		  
+	   });//이미지 눌렀을때 끝
+	   
+
 	   
 	   
    });//스크립트 끝

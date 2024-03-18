@@ -63,7 +63,7 @@
 			<version>2.11.0</version>
 		</dependency>
 
-		<!-- 이건뭔지 찾아보기 devtools -->
+		<!-- devtools: 자동재시작 기능 활성화 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

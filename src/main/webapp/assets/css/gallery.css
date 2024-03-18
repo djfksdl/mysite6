@@ -77,7 +77,7 @@
 /****************************************************************/
 /* 회원가입 폼요소그룹(라벨+폼요소) */
 /****** 업로드 모달창 ******/
-#addModal{
+#addModal, #viewModal{
 	display: none;
 	background-color: rgba(0,0,0,0.4);
 	width:100%;
@@ -87,7 +87,7 @@
 	top:0;
 	padding-top: 200px;
 }
-#addModal .modal-content{
+.modal-content{
 	border: 1px solid #000;
 	border-radius: 10px;
 	width:500px;
@@ -96,7 +96,7 @@
 	background-color: #fff;
 }
 /* 모달창 내용 윗부분*/
-#addModal .modal-content .addModal-top{
+.modal-content .Modal-top{
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row-reverse;
@@ -105,13 +105,12 @@
 	padding-left: 200px;
 	margin-bottom: 10px;
 }
-#addModal .modal-content .closeBtn{
-	text-align: rightl;
+.modal-content .closeBtn{
 	font-size: 25px;
 	cursor: pointer;
 	font-weight: bold;
 }
-#addModal .modal-content .m-header{
+.modal-content .m-header{
 	text-align: center;
 }
 
@@ -144,6 +143,7 @@
 ****************************************************************/
 /* 이미지보기 팝업   ************************************************/
 /****************************************************************/
+
 
 #viewModelImg {
 	width: 500px;
