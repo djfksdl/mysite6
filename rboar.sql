@@ -287,3 +287,9 @@ create table attach(
 	,file_path text
 	,file_size long
 );
+
+select * 
+from attach;
+
+insert into attach
+values(null, "Kim-Jong-kook.jpg","17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","C:\javaStudy\upload\17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","72159" );

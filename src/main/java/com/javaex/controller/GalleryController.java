@@ -9,6 +9,6 @@ public class GalleryController {
 	@RequestMapping(value="/gallery/list", method= {RequestMethod.POST, RequestMethod.GET} )
 	public String list() {
 		System.out.println("GalleryController.list()");
-		return "";
+		return "gallery/list";
 	}
 }

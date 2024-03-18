@@ -17,9 +17,9 @@
 <body>
    <div id="wrap">
 
-      <c:import url="/WEB-INF/views/include/header.jsp"></c:import>
-      <!-- //header -->
-      <!-- //nav -->
+	  <!-- header -->
+	  <c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	  <!--// header -->
 
       <div id="container" class="clearfix">
          <div id="aside">
@@ -79,8 +79,9 @@
       <!-- //container  -->
 
 
-      <c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
-      <!-- //footer -->
+	  <!-- footer -->
+	  <c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
+	  <!--// footer -->
 
    </div>
    <!-- //wrap -->
