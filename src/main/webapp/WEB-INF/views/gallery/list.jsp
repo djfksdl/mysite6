@@ -176,15 +176,36 @@
 			
 			//no값 받아오기
 			//console.log("event.target.dataset:"+event.target.dataset);
-			console.log(event.target.dataset.no);
+			let no = event.target.dataset.no;
+			//console.log(event.target.dataset.no);
 			let noTag = document.querySelector('[name=no]');
-			noTag.value=event.target.dataset.no;
+			noTag.value= no;
 			
-			//이미지 받기---?
-			let viewModelImg = document.querySelector("#viewModelImg");
-			console.log(viewModelImg);
-			let imgItem = document.querySelectorAll(".imgItem");
-			console.log(imgItem);
+			//이미지 받기- no로 보내기
+			 axios({
+				 method: 'get',           // put, post, delete                   
+				url: '${pageContext.request.contextPath}/api/gallerys',
+				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
+				params: {no:no}, //get방식 파라미터로 값이 전달- 객체형태로 전달해야해서 하나만 보내더라도 이렇게 보내야함. --질문
+				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
+				
+				responseType: 'json' //수신타입
+				}).then(function (response) {
+				 console.log(response); //수신데이타
+				 console.log(response.data);
+				 
+				 //이미지,내용 넣기
+				 let contextPath = '${pageContext.request.contextPath}';
+				 let viewModelImg= document.querySelector("#viewModelImg");
+				 viewModelImg.src = contextPath + '/upload/' + response.data.saveName; 
+				 
+				 let viewModelContent= document.querySelector("#viewModelContent");
+				 viewModelContent.textContent=response.data.content;
+				 
+				}).catch(function (error) {
+				 console.log(error);
+				 });
+
 			
 		  }//모달창 열기 끝
 		  
@@ -198,30 +219,33 @@
 	 	//삭제하기
 		let deleteBtn= document.querySelector("#deleteBtn");
 		deleteBtn.addEventListener("click",function(){
-			//console.log("삭제버튼");
+			console.log("삭제버튼");
 			let noTag = document.querySelector('[name=no]');
 			//console.log(noTag.value);
 			let no = noTag.value;
 
 			//서버로 데이터 전송
-			axios({
-				method: 'delete', // put, post, delete 
-				url: '${pageContext.request.contextPath}/api/gallerys/'+no,
-				headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
-				params: no, //get방식 파라미터로 값이 전달
+			 axios({
+				 method: 'delete',           // put, post, delete                   
+				url: '${pageContext.request.contextPath}/api/guestbooks/'+no,
+				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
+				params: {no:no}, //get방식 파라미터로 값이 전달
 				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
-				responseType: 'json' //수신타입
-				})
-				.then(function (response) {
-				console.log(response); //수신데이타
-					let tagId = "#t-"+no;
-					let removeImg = document.querySelector(tagId);
-					console.log(removeImg);
 				
-				})
-				.catch(function (error) {
-				console.log(error);
-				}); 
+				
+				responseType: 'json' //수신타입
+				}).then(function (response) {
+				 console.log(response); //수신데이타
+				 console.log(response.data);
+				 
+				 if(response.data == 1){
+					 
+				 }else{
+					 //아무것도 안함
+				 }
+				}).catch(function (error) {
+				 console.log(error);
+				 });
 			
 			
 		})

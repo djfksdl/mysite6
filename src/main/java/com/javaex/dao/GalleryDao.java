@@ -34,11 +34,22 @@ public class GalleryDao {
 		System.out.println("이미지 디비 들어가고 난 후 :" + gVo);
 	}
 	
+	//이미지, 내용 가져오기
+	public GalleryVo selectOne(int no) {
+		System.out.println("GalleryDao.selectOne");
+		
+		//디비에 등록하기
+		GalleryVo galleryVo= sqlSession.selectOne("gallery.selectOne", no);
+		
+		return galleryVo;
+	}
+	
 	//삭제하기
-	public void delete(int no) {
+	public int delete(int no) {
 		System.out.println("GalleryDao.delete");
 		
 		//디비에서 삭제하기
-		sqlSession.delete("gallery.delete", no);
+		int count =sqlSession.delete("gallery.delete", no);
+		return count ;
 	}
 }

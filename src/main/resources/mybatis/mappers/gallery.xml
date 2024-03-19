@@ -23,8 +23,18 @@
 		
 	</insert>
 	
+	<!-- 이미지,내용 가져오기 -->
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.GalleryVo">
+		<![CDATA[
+			select saveName
+	  			  ,content
+			from gallery
+			where no=#{no}
+		]]>
+	</select>
+	
 	<!-- 삭제하기 -->
-	<delete id="delete" parameterType="int">
+	 <delete id="delete" parameterType="int">
 		<![CDATA[
 			delete from gallery
 			where no=#{no}

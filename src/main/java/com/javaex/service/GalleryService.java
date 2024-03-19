@@ -88,13 +88,26 @@ public class GalleryService {
 		//return saveName; 
 	}//이미지 등록하기 끝
 	
+	//이미지,내용 가져오기
+	public GalleryVo exeSelectOne(int no) {
+		System.out.println("GalleryService.exeSelectOne");
+		
+		//Dao로 보내기
+		GalleryVo galleryVo= galleryDao.selectOne(no);
+		
+		return galleryVo;
+	}
+	
+	
+	
 	
 	//삭제하기
-	public void exeDelete(int no) {
+	public int exeDelete(int no) {
 		System.out.println("galleryService.exeDelete");
 		
 		//Dao로 보내기
-		galleryDao.delete(no);
+		int count = galleryDao.delete(no);
+		return count;
 	}
 
 }
