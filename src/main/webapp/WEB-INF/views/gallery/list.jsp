@@ -120,7 +120,8 @@
 			</div>
 			<div class="m-body">
 				<div>
-				   <img id="viewModelImg" src="${pageContext.request.contextPath}/upload/${saveName}">
+				   <img id="viewModelImg" src="">
+				   <!--http://localhost:8880/mysite6/upload/17109315...jpg-->
 				   <!-- ajax로 처리 : 이미지출력 위치-->
 				</div>
 				<div>
@@ -128,7 +129,7 @@
 				</div>
 			</div>
 			<div class="m-footer">
-				
+				<input type="text" name="no" value="">
 			   <button>삭제</button>
 			</div>
 		</div>
@@ -170,10 +171,17 @@
 		  	//console.log("위임완료");
 			viewModal.style.display="block";
 			
-			//이미지 받기?
+			//이미지 받기- no값 받아와야함+주소 채우기
+			console.log("event.target.dataset"+event.target.dataset);
+			console.log("event.target.dataset.no"+event.target.dataset.no);
+			let noTag = document.querySelector('[name=no]');
+			noTag.value=event.target.dataset.no;
 			
 			
-		  }//모달창안에서 할 수 있는 일 끝
+			
+			
+			
+		  }//이미지모달창안에서 할 수 있는 일 끝
 		  
 		  
 		  

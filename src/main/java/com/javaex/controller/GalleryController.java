@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,7 +36,7 @@ public class GalleryController {
 	
 	//이미지 등록하기
 	@RequestMapping(value="/gallery/upload", method= RequestMethod.POST)
-	public String upload(@ModelAttribute GalleryVo galleryVo, HttpSession session, Model model) { //file도 추가해줘서 불러와보자
+	public String upload(@ModelAttribute GalleryVo galleryVo, HttpSession session) { //file도 추가해줘서 불러와보자
 		System.out.println("GalleryController.upload");
 		
 		//session에서 no뽑아내기
@@ -45,11 +46,11 @@ public class GalleryController {
 		//서비스로 넘기기 
 		galleryVo.setUser_no(no);
 		System.out.println(galleryVo);
-		String saveName = galleryService.exeUpload(galleryVo);
+		galleryService.exeUpload(galleryVo);
 		
 		//모델에 넣어주기
-		model.addAttribute("saveName", saveName);
-		System.out.println(saveName);
+		//model.addAttribute("saveName", saveName);
+		//System.out.println(saveName);
 		
 		return "redirect:/gallery/list";
 	}

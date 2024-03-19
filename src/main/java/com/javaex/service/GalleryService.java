@@ -30,7 +30,7 @@ public class GalleryService {
 	}
 	
 	//이미지 등록하기
-	public String exeUpload(GalleryVo galleryVo) {
+	public void exeUpload(GalleryVo galleryVo) {
 		System.out.println("GalleryService.exeUpload");
 		
 		//하드디스크에 저장하기 + DB에 저장
@@ -84,7 +84,7 @@ public class GalleryService {
 			e.printStackTrace();
 		}
 		
-		return saveName;
+		//return saveName; 
 	}//이미지 등록하기 끝
 	
 	
