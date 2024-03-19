@@ -33,4 +33,12 @@ public class GalleryDao {
 		sqlSession.insert("gallery.insert", gVo);
 		System.out.println("이미지 디비 들어가고 난 후 :" + gVo);
 	}
+	
+	//삭제하기
+	public void delete(int no) {
+		System.out.println("GalleryDao.delete");
+		
+		//디비에서 삭제하기
+		sqlSession.delete("gallery.delete", no);
+	}
 }

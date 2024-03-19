@@ -27,7 +27,8 @@ public class GalleryService {
 		
 		return galleryList;
 		
-	}
+	}//리스트 불러오기 끝
+	
 	
 	//이미지 등록하기
 	public void exeUpload(GalleryVo galleryVo) {
@@ -88,5 +89,12 @@ public class GalleryService {
 	}//이미지 등록하기 끝
 	
 	
-	//
+	//삭제하기
+	public void exeDelete(int no) {
+		System.out.println("galleryService.exeDelete");
+		
+		//Dao로 보내기
+		galleryDao.delete(no);
+	}
+
 }

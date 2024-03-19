@@ -10,7 +10,8 @@
 
 <link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath }/assets/css/gallery.css" rel="stylesheet" type="text/css">
-
+<!-- Axios 라이브러리 포함 -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 	
@@ -58,8 +59,8 @@
 	               <!-- 이미지반복영역 -->
 	               <c:forEach items="${galleryList}" var="gList">
 		               <li>
-		                  <div class="view">
-		                     <img class="imgItem" src="${pageContext.request.contextPath}/upload/${gList.saveName}">
+		                  <div class="view" id="t-${gList.no}">
+		                     <img class="imgItem" src="${pageContext.request.contextPath}/upload/${gList.saveName}" data-no="${gList.no}">
 		                     <!-- 반복되는 gList안에서 savaName을 뽑아 와야 리스트에 반영이 된다. attribute에 넣는건 이 곳과는 상관없음 -->
 		                     <div class="imgWriter">
 		                        작성자: <strong>${gList.name}</strong>
@@ -130,7 +131,9 @@
 			</div>
 			<div class="m-footer">
 				<input type="text" name="no" value="">
-			   <button>삭제</button>
+				
+			   		<button type="button" id="deleteBtn">삭제</button>
+			   	
 			</div>
 		</div>
 	</div>
@@ -156,49 +159,75 @@
 		   
 	   });//등록버튼 눌렀을때 끝
 	   
-	   //이미지 눌렀을때 모달창 띄우기
+	   //이미지 눌렀을때 
 	   let viewArea = document.querySelector("#viewArea");
 	   viewArea.addEventListener("click",function(event){
 		  //console.log("이미지 눌렀을때");
 		  //위임
-		  //console.log(event.target);
+		  console.log(event.target);
 		  let imgTag = event.target.tagName;
 		  console.log(imgTag);
 		  
-		  //이미지 클릭할때 모달창 나오기
+		  //모달창 열기
 		  if(imgTag == "IMG"){
 			let viewModal = document.querySelector("#viewModal");
 		  	//console.log("위임완료");
 			viewModal.style.display="block";
 			
-			//이미지 받기- no값 받아와야함+주소 채우기
-			console.log("event.target.dataset"+event.target.dataset);
-			console.log("event.target.dataset.no"+event.target.dataset.no);
+			//no값 받아오기
+			//console.log("event.target.dataset:"+event.target.dataset);
+			console.log(event.target.dataset.no);
 			let noTag = document.querySelector('[name=no]');
 			noTag.value=event.target.dataset.no;
 			
-			//1. 이벤트 잡기
-			//2. 데이터 수집
-			//3. 요청
-			//(서버쪽 요청처리: 스프링)
-			//4. 응답 데이터 수신
-			//5. 화면반영 -> 수작업
+			//이미지 받기---?
+			let viewModelImg = document.querySelector("#viewModelImg");
+			console.log(viewModelImg);
+			let imgItem = document.querySelectorAll(".imgItem");
+			console.log(imgItem);
 			
-			
-			
-		  }//이미지모달창안에서 할 수 있는 일 끝
-		  
-		  
-		  
-		  
+		  }//모달창 열기 끝
 		  
 		  //x눌렀을때 모달창 닫기
 		  let closeBtn =document.querySelector("#viewModal .closeBtn");
 		   closeBtn.addEventListener("click",function(){
 			   viewModal.style.display = "none";
 		   });
+
+		
+	 	//삭제하기
+		let deleteBtn= document.querySelector("#deleteBtn");
+		deleteBtn.addEventListener("click",function(){
+			//console.log("삭제버튼");
+			let noTag = document.querySelector('[name=no]');
+			//console.log(noTag.value);
+			let no = noTag.value;
+
+			//서버로 데이터 전송
+			axios({
+				method: 'delete', // put, post, delete 
+				url: '${pageContext.request.contextPath}/api/gallerys/'+no,
+				headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
+				params: no, //get방식 파라미터로 값이 전달
+				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
+				responseType: 'json' //수신타입
+				})
+				.then(function (response) {
+				console.log(response); //수신데이타
+					let tagId = "#t-"+no;
+					let removeImg = document.querySelector(tagId);
+					console.log(removeImg);
+				
+				})
+				.catch(function (error) {
+				console.log(error);
+				}); 
+			
+			
+		})
 		  
 	   });//이미지 눌렀을때 끝
+	   
 	   
 
 	   
