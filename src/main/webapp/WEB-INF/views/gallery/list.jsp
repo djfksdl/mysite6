@@ -177,7 +177,12 @@
 			let noTag = document.querySelector('[name=no]');
 			noTag.value=event.target.dataset.no;
 			
-			
+			//1. 이벤트 잡기
+			//2. 데이터 수집
+			//3. 요청
+			//(서버쪽 요청처리: 스프링)
+			//4. 응답 데이터 수신
+			//5. 화면반영 -> 수작업
 			
 			
 			
