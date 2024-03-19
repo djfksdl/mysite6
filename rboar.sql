@@ -332,6 +332,11 @@ where g.user_no = u.no;
 select *
 from users;
 
+delete from gallery
+where no=10;
+
+select* from gallery;
+
 insert into gallery
 values(null,5,"안녕","C:\javaStudy\upload\17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","Kim-Jong-kook.jpg","17107347108197572a5e6-9310-434b-809e-3f03bdf017af.jpg","72159" );
 insert into gallery
