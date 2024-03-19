@@ -131,9 +131,7 @@
 			</div>
 			<div class="m-footer">
 				<input type="text" name="no" value="">
-				
-			   		<button type="button" id="deleteBtn">삭제</button>
-			   	
+			   			<button type="button" id="deleteBtn">삭제</button>
 			</div>
 		</div>
 	</div>
@@ -227,7 +225,7 @@
 			//서버로 데이터 전송
 			 axios({
 				 method: 'delete',           // put, post, delete                   
-				url: '${pageContext.request.contextPath}/api/guestbooks/'+no,
+				url: '${pageContext.request.contextPath}/api/gallerys/'+no,
 				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
 				params: {no:no}, //get방식 파라미터로 값이 전달
 				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
@@ -239,23 +237,30 @@
 				 console.log(response.data);
 				 
 				 if(response.data == 1){
-					 
+					console.log("삭제 성공");
+					
+					//리스트 삭제하기
+					let tagId= "#t-"+ no;
+					console.log(tagId);
+					let removeImg = document.querySelector(tagId);
+					console.log(removeImg);
+					removeImg.remove();
+					
+					//모달창 끄기
+					let viewModal = document.querySelector("#viewModal");
+					viewModal.style.display="none";
+					
 				 }else{
 					 //아무것도 안함
 				 }
 				}).catch(function (error) {
 				 console.log(error);
 				 });
-			
-			
+						
 		})
 		  
 	   });//이미지 눌렀을때 끝
-	   
-	   
 
-	   
-	   
    });//스크립트 끝
  </script>
 </html>

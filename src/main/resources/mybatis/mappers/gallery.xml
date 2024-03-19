@@ -26,7 +26,8 @@
 	<!-- 이미지,내용 가져오기 -->
 	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.GalleryVo">
 		<![CDATA[
-			select saveName
+			select user_no
+				  ,saveName
 	  			  ,content
 			from gallery
 			where no=#{no}

@@ -34,6 +34,7 @@ public class ApiGalleryController {
 	}
 	
 	//삭제
+	@ResponseBody
 	@RequestMapping(value="/api/gallerys/{no}", method=RequestMethod.DELETE)
 	public int remove(@PathVariable(value="no")int no) {
 		System.out.println("ApiGalleryController.remove");
