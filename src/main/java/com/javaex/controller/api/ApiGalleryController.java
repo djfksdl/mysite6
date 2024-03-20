@@ -1,11 +1,11 @@
 package com.javaex.controller.api;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GalleryService;
@@ -20,7 +20,7 @@ public class ApiGalleryController {
 	//이미지,내용 가져오기
 	@ResponseBody
 	@RequestMapping(value="/api/gallerys", method=RequestMethod.GET)
-	public GalleryVo modalContents(@Param(value="no")int no) {
+	public GalleryVo modalContents(@RequestParam(value="no")int no) {
 		System.out.println("ApiGalleryController.modalContents");
 		
 		System.out.println(no);

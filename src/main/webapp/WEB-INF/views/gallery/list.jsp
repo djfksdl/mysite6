@@ -139,7 +139,8 @@
 
 <script type="text/javascript">
    document.addEventListener("DOMContentLoaded",function(){
-	   //등록버튼 눌렀을때- 모달창 띄우기
+	  
+	   //등록버튼 눌렀을때- 모달창 띄우기 --> 로그인안하면 안뜨는데 밑에꺼랑 순서를 바꾸던지(근데 이건 별로 안좋음, 계속 오류가 나오니까!), if문을 걸어서 로그인안했을때는 작동을 안하게 하면 된다. 
 	   let btnImgUpload = document.querySelector("#btnImgUpload");
 	   btnImgUpload.addEventListener("click",function(){
 			//console.log("등록버튼 작동");
@@ -156,11 +157,13 @@
 					   
 		   
 	   });//등록버튼 눌렀을때 끝
+	  
 	   
 	   //이미지 눌렀을때 
 	   let viewArea = document.querySelector("#viewArea");
+	   console.log(viewArea);
 	   viewArea.addEventListener("click",function(event){
-		  //console.log("이미지 눌렀을때");
+		  console.log("이미지 눌렀을때");
 		  //위임
 		  console.log(event.target);
 		  let imgTag = event.target.tagName;
@@ -184,7 +187,7 @@
 				 method: 'get',           // put, post, delete                   
 				url: '${pageContext.request.contextPath}/api/gallerys',
 				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
-				params: {no:no}, //get방식 파라미터로 값이 전달- 객체형태로 전달해야해서 하나만 보내더라도 이렇게 보내야함. --질문
+				params: {no:no}, //get방식 파라미터로 값이 전달- 객체형태로 전달해야해서 하나만 보내더라도 이렇게 보내야함. --ajax로 치는거나 주소로 보내는거나 똑같음. 키값,값이니까 이렇게 보내야 뒤에 붙는다.
 				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
 				
 				responseType: 'json' //수신타입
@@ -227,7 +230,7 @@
 				 method: 'delete',           // put, post, delete                   
 				url: '${pageContext.request.contextPath}/api/gallerys/'+no,
 				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
-				params: {no:no}, //get방식 파라미터로 값이 전달
+				//params: {no:no}, //get방식 파라미터로 값이 전달-> 뒤에 ?no=3으로 붙어서 간다. 위에서 써줬으면 파람으로 굳이 보낼 필요없다. 만약 쓰면 두번 보낸거다.
 				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
 				
 				
@@ -257,7 +260,7 @@
 				 console.log(error);
 				 });
 						
-		})
+		})//삭제하기 끝
 		  
 	   });//이미지 눌렀을때 끝
 
