@@ -36,7 +36,7 @@ public class ApiGalleryController {
 	//삭제
 	@ResponseBody
 	@RequestMapping(value="/api/gallerys/{no}", method=RequestMethod.DELETE)
-	public int remove(@PathVariable(value="no")int no) {
+	public int remove(@PathVariable(value="no")int no) {//주소에 붙여서 온거니까 주소에서 받아오기
 		System.out.println("ApiGalleryController.remove");
 		
 		//서비스로 보내기 

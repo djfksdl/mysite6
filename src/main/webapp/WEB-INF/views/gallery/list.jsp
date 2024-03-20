@@ -130,8 +130,8 @@
 				</div>
 			</div>
 			<div class="m-footer">
-				<input type="text" name="no" value="">
-			   			<button type="button" id="deleteBtn">삭제</button>
+				<input type="hidden" name="no" value="">
+			   	<button type="button" id="deleteBtn">삭제</button>
 			</div>
 		</div>
 	</div>
@@ -140,26 +140,28 @@
 <script type="text/javascript">
    document.addEventListener("DOMContentLoaded",function(){
 	  
-	   //등록버튼 눌렀을때- 모달창 띄우기 --> 로그인안하면 안뜨는데 밑에꺼랑 순서를 바꾸던지(근데 이건 별로 안좋음, 계속 오류가 나오니까!), if문을 걸어서 로그인안했을때는 작동을 안하게 하면 된다. 
-	   let btnImgUpload = document.querySelector("#btnImgUpload");
-	   btnImgUpload.addEventListener("click",function(){
-			//console.log("등록버튼 작동");
-		   
-		   //모달창 보이기
-		   let addModal = document.querySelector("#addModal");
-		   addModal.style.display = "block";
-		   
-		   //모달창 끄기
-		   let closeBtn =document.querySelector("#addModal .closeBtn");
-		   closeBtn.addEventListener("click",function(){
-			   addModal.style.display = "none";
+	   ////등록버튼 눌렀을때- 등록모달창 띄우기 --> 로그인안하면 안뜨는데 밑에꺼랑 순서를 바꾸던지(근데 이건 별로 안좋음, 계속 오류가 나오니까!), if문을 걸어서 로그인안했을때는 작동을 안하게 하면 된다.
+	   let authUserNo = "${sessionScope.authUser.no}";
+	   if(authUserNo != ""){		   
+		   let btnImgUpload = document.querySelector("#btnImgUpload");
+		   btnImgUpload.addEventListener("click",function(){
+				//console.log("등록버튼 작동");
+			   
+			   //모달창 보이기
+			   let addModal = document.querySelector("#addModal");
+			   addModal.style.display = "block"; 
 		   });
-					   
-		   
-	   });//등록버튼 눌렀을때 끝
+	   }
+	   
+	   
+	   ////등록모달창 닫기
+	   let addCloseBtn =document.querySelector("#addModal .closeBtn");
+	   addCloseBtn.addEventListener("click",function(){
+		   addModal.style.display = "none";
+	   });
 	  
 	   
-	   //이미지 눌렀을때 
+	   ////이미지 눌렀을때 - 모달창 띄우기
 	   let viewArea = document.querySelector("#viewArea");
 	   console.log(viewArea);
 	   viewArea.addEventListener("click",function(event){
@@ -169,14 +171,14 @@
 		  let imgTag = event.target.tagName;
 		  console.log(imgTag);
 		  
-		  //모달창 열기
+		  //이미지 모달창 열기
 		  if(imgTag == "IMG"){
 			let viewModal = document.querySelector("#viewModal");
 		  	//console.log("위임완료");
 			viewModal.style.display="block";
 			
 			//no값 받아오기
-			//console.log("event.target.dataset:"+event.target.dataset);
+			console.log("event.target.dataset:"+event.target.dataset);
 			let no = event.target.dataset.no;
 			//console.log(event.target.dataset.no);
 			let noTag = document.querySelector('[name=no]');
@@ -187,7 +189,7 @@
 				 method: 'get',           // put, post, delete                   
 				url: '${pageContext.request.contextPath}/api/gallerys',
 				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
-				params: {no:no}, //get방식 파라미터로 값이 전달- 객체형태로 전달해야해서 하나만 보내더라도 이렇게 보내야함. --ajax로 치는거나 주소로 보내는거나 똑같음. 키값,값이니까 이렇게 보내야 뒤에 붙는다.
+				params: {no:no}, //get방식 파라미터로 값이 전달- 객체형태로 전달해야해서 하나만 보내더라도 이렇게 보내야함. --ajax로 치는거나 주소로 보내는거나 똑같음. {키값:값}이니까 이렇게 보내야 주소 뒤에 붙는다.
 				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
 				
 				responseType: 'json' //수신타입
@@ -196,28 +198,39 @@
 				 console.log(response.data);
 				 
 				 //이미지,내용 넣기
-				 let contextPath = '${pageContext.request.contextPath}';
 				 let viewModelImg= document.querySelector("#viewModelImg");
-				 viewModelImg.src = contextPath + '/upload/' + response.data.saveName; 
+				 viewModelImg.src ='${pageContext.request.contextPath}/upload/' + response.data.saveName; 
 				 
 				 let viewModelContent= document.querySelector("#viewModelContent");
 				 viewModelContent.textContent=response.data.content;
+				 
+				 //로그인 정보와 user_no일치하면 삭제버튼 보이기
+				 let userNo = response.data.user_no;
+				 let deleteBtn = document.querySelector("#deleteBtn");
+				 console.log(userNo);
+				 if(authUserNo != userNo){
+					 deleteBtn.style.display = "none";
+				 }else{
+					 deleteBtn.style.display = "block";
+				 }
 				 
 				}).catch(function (error) {
 				 console.log(error);
 				 });
 
-			
-		  }//모달창 열기 끝
+		  };
 		  
-		  //x눌렀을때 모달창 닫기
-		  let closeBtn =document.querySelector("#viewModal .closeBtn");
-		   closeBtn.addEventListener("click",function(){
+	   });//이미지 눌렀을때 끝
+	   
+	   
+	   ////x눌렀을때 이미지 모달창 닫기
+		  let viewCloseBtn =document.querySelector("#viewModal .closeBtn");
+		  viewCloseBtn.addEventListener("click",function(){
 			   viewModal.style.display = "none";
 		   });
-
-		
-	 	//삭제하기
+		  
+		  
+		////삭제하기
 		let deleteBtn= document.querySelector("#deleteBtn");
 		deleteBtn.addEventListener("click",function(){
 			console.log("삭제버튼");
@@ -228,7 +241,7 @@
 			//서버로 데이터 전송
 			 axios({
 				 method: 'delete',           // put, post, delete                   
-				url: '${pageContext.request.contextPath}/api/gallerys/'+no,
+				url: '${pageContext.request.contextPath}/api/gallerys/'+no,//여기서 no붙여가면 밑에 굳이 params나 data로 보낼 필요가 없다.
 				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
 				//params: {no:no}, //get방식 파라미터로 값이 전달-> 뒤에 ?no=3으로 붙어서 간다. url에서 +no 써줬으면 params으로 굳이 보낼 필요없다. 만약 쓰면 두번 보낸거임
 				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
@@ -261,8 +274,7 @@
 				 });
 						
 		})//삭제하기 끝
-		  
-	   });//이미지 눌렀을때 끝
+		
 
    });//스크립트 끝
  </script>
