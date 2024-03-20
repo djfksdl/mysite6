@@ -230,7 +230,7 @@
 				 method: 'delete',           // put, post, delete                   
 				url: '${pageContext.request.contextPath}/api/gallerys/'+no,
 				 headers: {"Content-Type" : "application/json; charset=utf-8"}, //전송타입
-				//params: {no:no}, //get방식 파라미터로 값이 전달-> 뒤에 ?no=3으로 붙어서 간다. 위에서 써줬으면 파람으로 굳이 보낼 필요없다. 만약 쓰면 두번 보낸거다.
+				//params: {no:no}, //get방식 파라미터로 값이 전달-> 뒤에 ?no=3으로 붙어서 간다. url에서 +no 써줬으면 params으로 굳이 보낼 필요없다. 만약 쓰면 두번 보낸거임
 				//data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
 				
 				
