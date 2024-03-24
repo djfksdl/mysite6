@@ -28,8 +28,8 @@ public class AttachService {
 		String saveDir = "C:\\javaStudy\\upload";// 슬래시 쓰려면 \t, \n처럼 특수기호로 인식해서, 슬래시를 문자열에서 인식하게 하려면 하나 더 붙여줘야 오류가 안남
 		
 		//(0)파일 관련 정보수집
-		// 오리지날 파일명
-		String orgName = file.getOriginalFilename();
+		// 오리지날 파일명- 게시판에 내가 올리면 내가 올린 이름.jpg로 올라감.관리는 다른이름으로 하지만 다시 내려받을때 원래 이름으로 바꿔서 내려지기떄문에 가지고 있어야한다? -질문
+		String orgName = file.getOriginalFilename();// getOriginalFilename: 오리지널 파일이름을 가져온다.
 		System.out.println("orgName: "+orgName);
 		
 		
@@ -39,7 +39,7 @@ public class AttachService {
 		//System.out.println(orgName.substring(4));
 		//System.out.println(orgName.lastIndexOf("."));
 		
-		//저장 파일 명(겹치지 않아야함)
+		//저장 파일 명(겹치지 않아야함- why?: 작성자가 다른데 이름이 같으면 덮어써버림. 문제 발생 가능성생김)
 		String saveName= System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
 		System.out.println("saveName : " + saveName);
 		
