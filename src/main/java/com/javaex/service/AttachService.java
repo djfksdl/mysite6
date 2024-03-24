@@ -25,9 +25,9 @@ public class AttachService {
 		System.out.println(file.getOriginalFilename());
 		
 		//파일 저장 폴더
-		String saveDir = "C:\\javaStudy\\upload";// 슬래시 쓰려면 \t, \n처럼 특수기호로 인식해서? 하나 더 붙여줘야 오류가 안남 11:44
+		String saveDir = "C:\\javaStudy\\upload";// 슬래시 쓰려면 \t, \n처럼 특수기호로 인식해서, 슬래시를 문자열에서 인식하게 하려면 하나 더 붙여줘야 오류가 안남
 		
-		//(0)파일 관련 정보수집 11:00
+		//(0)파일 관련 정보수집
 		// 오리지날 파일명
 		String orgName = file.getOriginalFilename();
 		System.out.println("orgName: "+orgName);

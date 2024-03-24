@@ -23,7 +23,7 @@ public class AttachController {
 	}
 	
 	@RequestMapping(value="/attach/upload", method= RequestMethod.POST)
-	public String upload(@RequestParam(value="file") MultipartFile file, Model model) { //파일을 담기 위한 방법. String 이나 int로 담을 수 없다. 
+	public String upload(@RequestParam(value="file") MultipartFile file, Model model) { //MultipartFile: 파일을 담기 위한 방법. String 이나 int로 담을 수 없다. 
 		System.out.println("AttachController.upload()");
 		//System.out.println(file.getOriginalFilename());
 		//System.out.println(file.toString());//원래는 toString으로 찍어서 확인하는데, 첨부파일이 있어도 찍고, 없어도 찍는애다.그래서 올라왔는지 안올라왔는지 toString으로 확인하면 안된다. (주의)
